@@ -1,7 +1,18 @@
 from yahoofinancials import YahooFinancials
 from datetime import date, timedelta
 from os import listdir
-import conf
+
+
+
+def read_cfg(tickers_list):
+    # reading tickers.config file
+    print('Reading tickers list:')
+    with open('tickers.config') as f:
+        for line in f:
+            if line[0] != '#':
+                tickers_list.append(line.strip())
+    print(tickers_list)
+    return tickers_list
 
 
 def ingest_data(tickers, file_list_raw):
@@ -31,6 +42,6 @@ if __name__ == '__main__':
     tickers_list = []
     file_list_raw = []
 
-    read_config.read_cfg(tickers_list)
+    read_cfg(tickers_list)
     ingest_data(tickers_list, file_list_raw)
     print(file_list_raw)
